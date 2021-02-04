@@ -1,0 +1,28 @@
+npm init -y
+
+npm i --s express@4.17.1 mongoose@5.11.9 express-handlebars@5.2.0 body-parser
+npm i --s  ejs@3.1.5 express-session@1.17.1 mongoose@5.11.11
+npm i --s nodemon@2.0.6
+npm install @handlebars/allow-prototype-access
+npm list    : TO check all the versions of the pacakges.
+
+Thans need to create a mongoDb database..
+
+run 
+node server.js
+
+npm i nodemon  // Install this package for auto restart Db and port
+
+npm i bcrypt
+
+For Nodemon error : "nodemon : File C:\Users\ViMs\AppData\Roaming\npm\nodemon.ps1 cannot be loaded because running scripts is disabled on this system. For more information, see "
+
+Follow This Steps :
+
+1) Run PowerShell As Administrator.
+2) Go To node Folder.
+3) Run Get-ExecutionPolicy if result is restricted.
+4) Set-ExecutionPolicy Unrestricted
+5) Run again Get-ExecutionPolicy to check its changed or not.
+
+Now we can use "nodemon" package.

@@ -26,3 +26,5 @@ Follow This Steps :
 5) Run again Get-ExecutionPolicy to check its changed or not.
 
 Now we can use "nodemon" package.
+
+npm i nodemon // To update nodemon with latest release.

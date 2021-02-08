@@ -33,12 +33,7 @@ async function insertRecord(req, res) {
     employee.city = req.body.city;
     employee.password = req.body.password;
     employee.confirm_password = req.body.confirm_password;
-    
-    // if (req.body.password.length !== 0) {
-    //     employee.password = bcrypt.hashSync(req.body.password, 10); //Bcryot Hash password.    
-    // }
-    // this.confirm_password = undefined;
-    
+        
     await employee.save((err, doc) => {
         if (!err)
         {
@@ -47,9 +42,7 @@ async function insertRecord(req, res) {
         }            
         else {
             if (err.name == 'ValidationError') {
-                //console.log('error name : validation insertion');
                 handleValidationError(err, req.body);
-               // console.log(err);
                 res.render("employee/addOrEdit", {
                     viewTitle: "Insert Employee",
                     employee: req.body
@@ -67,7 +60,6 @@ function updateRecord(req, res) {
     if (!err) { res.redirect('employee/list'); }
         else {
             if (err.name == 'ValidationError') {
-               // console.log('error name : validation update!');
                 handleValidationError(err, req.body);
                 res.render("employee/addOrEdit", {
                     viewTitle: 'Update Employee',
@@ -127,7 +119,6 @@ function handleValidationError(err, body) {
     for (field in err.errors) {
         switch (err.errors[field].path) {
             case 'fullName':
-                //console.log("In this case");
                 body['fullNameError'] = err.errors[field].message;
                 break;
             case 'email':
@@ -135,7 +126,6 @@ function handleValidationError(err, body) {
                 break;
             case 'password':
                 body['passwordError'] = err.errors[field].message;
-                //console.log('password');
                 break;
             case 'confirm_password':
                 body['confirm_passwordError'] = err.errors[field].message;

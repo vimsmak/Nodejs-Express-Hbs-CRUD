@@ -50,6 +50,7 @@ var employeeSchema = new mongoose.Schema({
 //     return emailRegex.test(val);
 // }, 'Invalid e-mail.');
 
+//check email is already exists or not.
 employeeSchema.path('email').validate(async(email) => {
     const emailCount = await mongoose.models.Employee.countDocuments({ email })
     return !emailCount;

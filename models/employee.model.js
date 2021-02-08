@@ -10,7 +10,8 @@ var employeeSchema = new mongoose.Schema({
     fullName: {
         type: String,
         required: 'Full name is required.',
-        validate: [validator.isAlpha, 'Full name may only have letters.']
+        minLength: [4, 'Name is too short!'],
+        maxLength: 25
     },
     email: {
         type: String,

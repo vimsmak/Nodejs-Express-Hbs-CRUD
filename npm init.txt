@@ -15,6 +15,7 @@ npm i nodemon  // Install this package for auto restart Db and port
 
 npm i bcrypt
 
+npm i validator
 For Nodemon error : "nodemon : File C:\Users\ViMs\AppData\Roaming\npm\nodemon.ps1 cannot be loaded because running scripts is disabled on this system. For more information, see "
 
 Follow This Steps :
@@ -27,4 +28,4 @@ Follow This Steps :
 
 Now we can use "nodemon" package.
 
-npm i nodemon // To update nodemon with latest release.
+npm i nodemon // To update nodemon with latest release..

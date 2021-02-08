@@ -9,13 +9,15 @@ const bcrypt = require("bcrypt");
 const flash = require('connect-flash');
 const { ensureAuthenticated, forwardAuthenticated } = require('../config/auth');
 
-router.get('/', ensureAuthenticated,(req, res) => {
+//router.get('/', ensureAuthenticated,(req, res) => {
+router.get('/',(req, res) => {    
     res.render("employee/addOrEdit", {
         viewTitle: "Insert Employee"
     });
 });
 
-router.post('/', ensureAuthenticated, (req, res) => {
+//router.post('/', ensureAuthenticated, (req, res) => {
+router.post('/', (req, res) => {
     if (req.body._id == '')
         insertRecord(req, res);
         else
@@ -23,15 +25,21 @@ router.post('/', ensureAuthenticated, (req, res) => {
 });
 
 
-function insertRecord(req, res) {
+async function insertRecord(req, res) {
     var employee = new Employee();
     employee.fullName = req.body.fullName;
     employee.email = req.body.email;
     employee.mobile = req.body.mobile;
     employee.city = req.body.city;
-    //employee.password = req.body.password;
-    employee.password = bcrypt.hashSync(req.body.password, 10); //Bcryot Hash password.
-    employee.save((err, doc) => {
+    employee.password = req.body.password;
+    employee.confirm_password = req.body.confirm_password;
+    
+    // if (req.body.password.length !== 0) {
+    //     employee.password = bcrypt.hashSync(req.body.password, 10); //Bcryot Hash password.    
+    // }
+    // this.confirm_password = undefined;
+    
+    await employee.save((err, doc) => {
         if (!err)
         {
             req.flash('success_msg', 'You are now registered!');
@@ -41,6 +49,7 @@ function insertRecord(req, res) {
             if (err.name == 'ValidationError') {
                 //console.log('error name : validation insertion');
                 handleValidationError(err, req.body);
+               // console.log(err);
                 res.render("employee/addOrEdit", {
                     viewTitle: "Insert Employee",
                     employee: req.body
@@ -126,7 +135,11 @@ function handleValidationError(err, body) {
                 break;
             case 'password':
                 body['passwordError'] = err.errors[field].message;
-                break;            
+                //console.log('password');
+                break;
+            case 'confirm_password':
+                body['confirm_passwordError'] = err.errors[field].message;
+                break;
             case 'mobile':
                 body['mobileError'] = err.errors[field].message;
                 break;                        
